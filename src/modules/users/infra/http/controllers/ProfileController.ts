@@ -5,6 +5,7 @@ import { classToClass } from 'class-transformer';
 import UpdateProfileService from '@modules/users/services/UpdateProfileService';
 import ShowProfileService from '@modules/users/services/ShowProfileService';
 import RemoveProfileService from '@modules/users/services/RemoveProfileService';
+import CreateFavoriteBooksListService from '@modules/users/services/CreateFavoriteBooksListService';
 
 export default class ProfileController {
   public async show(request: Request, response: Response): Promise<Response> {
@@ -50,5 +51,19 @@ export default class ProfileController {
     });
 
     return response.json(classToClass(user));
+  }
+
+  public async favorites(
+    request: Request,
+    response: Response,
+  ): Promise<Response> {
+    const { booksIds } = request.body;
+    const user_id = request.user.id;
+
+    const messageSuccess = await container
+      .resolve(CreateFavoriteBooksListService)
+      .execute({ booksIds, user_id });
+
+    return response.json({ message: messageSuccess });
   }
 }

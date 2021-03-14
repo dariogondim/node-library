@@ -1,4 +1,4 @@
-import { MigrationInterface, QueryRunner, Table } from 'typeorm';
+import { MigrationInterface, QueryRunner, Table, TableUnique } from 'typeorm';
 
 export default class CreateUsersHasBooks1615757287768
   implements MigrationInterface {
@@ -34,6 +34,13 @@ export default class CreateUsersHasBooks1615757287768
             onUpdate: 'CASCADE',
           },
         ],
+      }),
+    );
+    await queryRunner.createUniqueConstraint(
+      'users_books_books',
+      new TableUnique({
+        columnNames: ['usersId', 'booksId'],
+        name: 'uniqueFavoriteBookPerUser',
       }),
     );
   }

@@ -38,4 +38,14 @@ profileRouter.delete(
   profileController.remove,
 );
 
+profileRouter.post(
+  '/favoritesBooks',
+  celebrate({
+    [Segments.BODY]: {
+      booksIds: Joi.array(),
+    },
+  }),
+  profileController.favorites,
+);
+
 export default profileRouter;
