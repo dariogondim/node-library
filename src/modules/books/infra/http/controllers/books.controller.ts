@@ -10,7 +10,6 @@ import { container } from 'tsyringe';
 export default class BooksControllers {
   public async create(request: Request, response: Response): Promise<Response> {
     const {
-      name,
       isbn,
       title,
       category,
@@ -24,7 +23,6 @@ export default class BooksControllers {
     const { user_id } = request.body;
 
     const book = await container.resolve(CreateBookService).execute({
-      name,
       isbn,
       title,
       category,
@@ -41,7 +39,6 @@ export default class BooksControllers {
 
   public async update(request: Request, response: Response): Promise<Response> {
     const {
-      name,
       isbn,
       title,
       category,
@@ -58,7 +55,6 @@ export default class BooksControllers {
 
     const book = await container.resolve(UpdateBookService).execute({
       id,
-      name,
       isbn,
       title,
       category,

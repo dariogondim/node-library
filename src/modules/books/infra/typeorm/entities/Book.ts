@@ -12,9 +12,6 @@ export default class Book {
   id: string;
 
   @Column()
-  name: string;
-
-  @Column()
   isbn: string;
 
   @Column()

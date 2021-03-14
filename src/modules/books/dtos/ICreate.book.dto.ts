@@ -1,5 +1,4 @@
 export default interface ICreateBookDTO {
-  name: string;
   isbn: string;
   title: string;
   category: string;

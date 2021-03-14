@@ -1,6 +1,5 @@
 export default interface IUpdateBookDTO {
   id: string;
-  name: string;
   isbn: string;
   title: string;
   category: string;
