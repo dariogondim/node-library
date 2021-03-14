@@ -5,7 +5,7 @@ import IRemoveBookDTO from '@modules/books/dtos/IRemove.book.dto';
 import IUpdateBookDTO from '@modules/books/dtos/IUpdate.book.dto';
 import Book from '@modules/books/infra/typeorm/entities/Book';
 
-export default interface IProductsRepository {
+export default interface IBooksRepository {
   create(data: ICreateBookDTO): Promise<Book>;
   update(data: IUpdateBookDTO): Promise<Book>;
   find(data: IFindByIdBookDTO): Promise<Book | undefined>;
