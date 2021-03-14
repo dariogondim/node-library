@@ -18,7 +18,6 @@ export default class CreateBookService {
   ) {}
 
   public async execute({
-    name,
     isbn,
     title,
     category,
@@ -28,5 +27,20 @@ export default class CreateBookService {
     editionYear,
     numberPages,
     user_id,
-  }: IRequest): Promise<IResponse> {}
+  }: IRequest): Promise<IResponse> {
+    // bussiness roles
+
+    const book = await this.booksRepository.create({
+      isbn,
+      title,
+      category,
+      edition,
+      author,
+      publishing,
+      editionYear,
+      numberPages,
+    });
+
+    return book;
+  }
 }
