@@ -4,9 +4,7 @@ import AppError from '@shared/errors/AppError';
 import IBooksRepository from '../repositories/IBooks.repository';
 import IRemoveBookDTO from '../dtos/IRemove.book.dto';
 
-interface IRequest extends IRemoveBookDTO {
-  user_id: string;
-}
+type IRequest = IRemoveBookDTO;
 
 type IResponse = Promise<string>;
 
@@ -17,7 +15,7 @@ export default class RemoveBookService {
     private booksRepository: IBooksRepository,
   ) {}
 
-  public async execute({ id, user_id }: IRequest): Promise<IResponse> {
+  public async execute({ id }: IRequest): Promise<IResponse> {
     // bussiness roles
 
     const bookFound = await this.booksRepository.find({

@@ -6,9 +6,7 @@ import Book from '../infra/typeorm/entities/Book';
 import IBooksRepository from '../repositories/IBooks.repository';
 import SharedBookService from './shared/shared.book.service';
 
-interface IRequest extends ICreateBookDTO {
-  user_id: string;
-}
+type IRequest = ICreateBookDTO;
 type IResponse = Book;
 
 @injectable()
@@ -27,7 +25,6 @@ export default class CreateBookService {
     publishing,
     editionYear,
     numberPages,
-    user_id,
   }: IRequest): Promise<IResponse> {
     // bussiness roles
 

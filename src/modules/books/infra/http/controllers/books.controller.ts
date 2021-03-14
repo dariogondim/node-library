@@ -20,8 +20,6 @@ export default class BooksControllers {
       numberPages,
     } = request.body;
 
-    const { user_id } = request.body;
-
     const book = await container.resolve(CreateBookService).execute({
       isbn,
       title,
@@ -31,7 +29,6 @@ export default class BooksControllers {
       publishing,
       editionYear,
       numberPages,
-      user_id,
     });
 
     return response.json(classToClass(book));
@@ -49,8 +46,6 @@ export default class BooksControllers {
       numberPages,
     } = request.body;
 
-    const { user_id } = request.body;
-
     const { id } = request.params;
 
     const book = await container.resolve(UpdateBookService).execute({
@@ -63,35 +58,28 @@ export default class BooksControllers {
       publishing,
       editionYear,
       numberPages,
-      user_id,
     });
 
     return response.json(classToClass(book));
   }
 
   public async remove(request: Request, response: Response): Promise<Response> {
-    const { user_id } = request.body;
-
     const { id } = request.params;
 
     const messageSuccess = await container.resolve(RemoveBookService).execute({
       id,
-      user_id,
     });
 
     return response.json({ message: messageSuccess });
   }
 
   public async find(request: Request, response: Response): Promise<Response> {
-    const { user_id } = request.body;
-
     const { id } = request.params;
 
     const findBook = container.resolve(FindByIdBookService);
 
     const book = await findBook.execute({
       id,
-      user_id,
     });
 
     return response.json(book);
@@ -102,7 +90,6 @@ export default class BooksControllers {
     response: Response,
   ): Promise<Response> {
     const { limitResults, resultsPerPage, firstPage } = request.query;
-    const { user_id } = request.body;
 
     // valores default caso não sejam informados
     const limitResultsAux = limitResults
@@ -118,7 +105,6 @@ export default class BooksControllers {
       limitResults: limitResultsAux,
       resultsPerPage: resultsPerPageAux,
       firstPage: firstPageAux,
-      user_id,
     });
 
     // adicionando a propriedade page, que indica a página do valor

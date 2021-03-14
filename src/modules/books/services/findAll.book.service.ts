@@ -9,7 +9,6 @@ import SharedBookService from './shared/shared.book.service';
 interface IRequest extends Omit<IFindAllBookDTO, 'offset'> {
   resultsPerPage: number;
   firstPage: number;
-  user_id: string;
 }
 
 type IResponse = Book[];
@@ -25,7 +24,6 @@ export default class FindAllBookService {
     limitResults,
     resultsPerPage,
     firstPage,
-    user_id,
   }: IRequest): Promise<IResponse> {
     // bussiness roles
 

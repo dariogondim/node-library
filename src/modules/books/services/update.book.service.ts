@@ -5,10 +5,10 @@ import Book from '../infra/typeorm/entities/Book';
 import IBooksRepository from '../repositories/IBooks.repository';
 import IUpdateBookDTO from '../dtos/IUpdate.book.dto';
 import SharedBookService from './shared/shared.book.service';
+import FindByIdBookService from './findById.book.service';
 
 interface IRequest extends IUpdateBookDTO {
   id: string;
-  user_id: string;
 }
 
 type IResponse = Book;
@@ -30,8 +30,15 @@ export default class UpdateBookService {
     publishing,
     editionYear,
     numberPages,
-    user_id,
   }: IRequest): Promise<IResponse> {
+    const bookToUpdated = await this.booksRepository.find({
+      id,
+    });
+
+    if (!bookToUpdated) {
+      throw new AppError('Book not found', 404);
+    }
+
     const bookRegistered = await container
       .resolve(SharedBookService)
       .filterBookByIsbn({ isbn, booksRepository: this.booksRepository });
