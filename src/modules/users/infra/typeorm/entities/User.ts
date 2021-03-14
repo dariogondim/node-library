@@ -16,6 +16,12 @@ class User {
   name: string;
 
   @Column()
+  phone: string;
+
+  @Column()
+  age: number;
+
+  @Column()
   email: string;
 
   @Column()
