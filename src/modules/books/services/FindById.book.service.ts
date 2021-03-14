@@ -5,7 +5,9 @@ import Book from '../infra/typeorm/entities/Book';
 import IBooksRepository from '../repositories/IBooks.repository';
 import IFindByIdBookDTO from '../dtos/IFindById.book.dto';
 
-type IRequest = IFindByIdBookDTO;
+interface IRequest extends IFindByIdBookDTO {
+  user_id: string;
+}
 type IResponse = Book;
 
 @injectable()
@@ -15,5 +17,5 @@ export default class FindByIdBookService {
     private booksRepository: IBooksRepository,
   ) {}
 
-  public async execute({ id }: IRequest): Promise<IResponse> {}
+  public async execute({ id, user_id }: IRequest): Promise<IResponse> {}
 }

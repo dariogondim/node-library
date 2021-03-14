@@ -7,6 +7,7 @@ import IUpdateBookDTO from '../dtos/IUpdate.book.dto';
 
 interface IRequest extends IUpdateBookDTO {
   id: string;
+  user_id: string;
 }
 
 type IResponse = Book;
@@ -29,5 +30,6 @@ export default class CreateBookService {
     publishing,
     editionYear,
     numberPages,
+    user_id,
   }: IRequest): Promise<IResponse> {}
 }

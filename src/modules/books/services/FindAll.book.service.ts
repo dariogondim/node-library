@@ -5,7 +5,10 @@ import Book from '../infra/typeorm/entities/Book';
 import IBooksRepository from '../repositories/IBooks.repository';
 import IFindAllBookDTO from '../dtos/IFindAll.book.dto';
 
-type IRequest = IFindAllBookDTO;
+interface IRequest extends IFindAllBookDTO {
+  user_id: string;
+}
+
 type IResponse = Book[];
 
 @injectable()
@@ -18,5 +21,6 @@ export default class FindAllBookService {
   public async execute({
     limitResults,
     offset,
+    user_id,
   }: IRequest): Promise<IResponse> {}
 }

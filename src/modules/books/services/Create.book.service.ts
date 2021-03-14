@@ -5,7 +5,9 @@ import ICreateBookDTO from '../dtos/ICreate.book.dto';
 import Book from '../infra/typeorm/entities/Book';
 import IBooksRepository from '../repositories/IBooks.repository';
 
-type IRequest = ICreateBookDTO;
+interface IRequest extends ICreateBookDTO {
+  user_id: string;
+}
 type IResponse = Book;
 
 @injectable()
@@ -25,5 +27,6 @@ export default class CreateBookService {
     publishing,
     editionYear,
     numberPages,
+    user_id,
   }: IRequest): Promise<IResponse> {}
 }
