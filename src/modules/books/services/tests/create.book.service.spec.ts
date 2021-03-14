@@ -2,6 +2,7 @@ import FakeBooksRepository from '@modules/books/repositories/fakes/fake.books.re
 import AppError from '@shared/errors/AppError';
 import fakeDatabase from '@shared/providers/fakes/FakeDatabase';
 import { fakeBook1, fakeBook2 } from '@shared/providers/fakes/FakeObjs';
+import { uuid } from 'uuidv4';
 import CreateBookService from '../create.book.service';
 import FindAllBookService from '../findAll.book.service';
 import FindByIdBookService from '../findById.book.service';
@@ -80,7 +81,7 @@ describe('Test BOOKS', () => {
   });
 
   it('UPDATE NONEXISTENT:book HAVE THROW ERROR', async () => {
-    fakeBook2.id = '2ffc7bfb-9874-41be-8448-02b61481b464'; // altera o id,para simular um livros que não existe
+    fakeBook2.id = uuid(); // altera o id,para simular um livros que não existe
 
     const bookChanged = updateService.execute({
       ...fakeBook2,
@@ -100,7 +101,7 @@ describe('Test BOOKS', () => {
   it('FIND BY ID NONEXISTENT:book must RETURN WITH ERROR', async () => {
     await createService.execute({ ...fakeBook1 });
     const findBook = findByIdService.execute({
-      id: '2ffc7bfb-9874-41be-8448-02b61481b464',
+      id: uuid(),
     }); // usa um id que não existe
 
     await expect(findBook).rejects.toBeInstanceOf(AppError); // que lançe um erro
@@ -120,7 +121,7 @@ describe('Test BOOKS', () => {
     await createService.execute({ ...fakeBook1 });
 
     const findBook = removeService.execute({
-      id: '2ffc7bfb-9874-41be-8448-02b61481b464',
+      id: uuid(),
     }); // usa um id que não existe
 
     await expect(findBook).rejects.toBeInstanceOf(AppError); // que lançe um erro
