@@ -24,3 +24,19 @@ export const fakeBook2 = {
   editionYear: 2001,
   numberPages: 336,
 };
+
+export const fakeUser1 = {
+  name: 'Dario Gondim',
+  email: `${uuid()}@gmail.com`,
+  password: '123456',
+  phone: '85988776655',
+  age: 29,
+};
+
+export const fakeUser2 = {
+  name: 'Dario Gondim',
+  email: `${uuid()}@gmail.com`,
+  password: '123456',
+  phone: '85988776655',
+  age: 29,
+};

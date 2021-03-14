@@ -5,6 +5,7 @@ import ICreateUserDTO from '@modules/users/dtos/ICreateUserDTO';
 
 import IFindAllProvidersDTO from '@modules/users/dtos/IFindAllProvidersDTO';
 import IRemoveUserDTO from '@modules/users/dtos/IRemoveUserDTO';
+import IFindAllUsersDTO from '@modules/users/dtos/IFindAllUsersDTO';
 import User from '../../infra/typeorm/entities/User';
 
 class FakeUsersRepository implements IUsersRepository {
@@ -71,6 +72,18 @@ class FakeUsersRepository implements IUsersRepository {
     //   },
     // });
     // return !user;
+  }
+
+  public async findAll(data: IFindAllUsersDTO): Promise<User[]> {
+    return this.users; // a parte do teste com limites e ofsset, não faz sentido testar aqui
+    // const { limitResults, offset } = data;
+
+    //   const users = await this.ormRepository.find({
+    //     take: limitResults,
+    //     skip: offset,
+    //   });
+
+    //   return users;
   }
 }
 
