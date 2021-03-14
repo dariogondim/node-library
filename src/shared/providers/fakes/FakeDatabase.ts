@@ -1,10 +1,12 @@
+import Book from '@modules/books/infra/typeorm/entities/Book';
+
 class FakeDatabase {
-  // fakeProducts: Product[];
+  fakeBooks: Book[];
 
   // fakeOrders: Order[];
 
   public resetDatabase(): void {
-    // this.fakeOrders = [];
+    this.fakeBooks = [];
     // this.fakeProducts = [];
   }
 }
