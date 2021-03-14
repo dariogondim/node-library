@@ -11,7 +11,7 @@ interface IRequest extends IRemoveBookDTO {
 type IResponse = boolean;
 
 @injectable()
-export default class FindByIdBookService {
+export default class RemoveBookService {
   constructor(
     @inject('BooksRepository')
     private booksRepository: IBooksRepository,

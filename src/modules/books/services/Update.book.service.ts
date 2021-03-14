@@ -13,7 +13,7 @@ interface IRequest extends IUpdateBookDTO {
 type IResponse = Book;
 
 @injectable()
-export default class CreateBookService {
+export default class UpdateBookService {
   constructor(
     @inject('BooksRepository')
     private booksRepository: IBooksRepository,
