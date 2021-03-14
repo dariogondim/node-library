@@ -5,13 +5,7 @@ import IFindByIdBookDTO from '@modules/books/dtos/IFindById.book.dto';
 import IRemoveBookDTO from '@modules/books/dtos/IRemove.book.dto';
 import IUpdateBookDTO from '@modules/books/dtos/IUpdate.book.dto';
 import IBooksRepository from '@modules/books/repositories/IBooks.repository';
-import {
-  Repository,
-  getRepository,
-  FindManyOptions,
-  FindConditions,
-  FindOneOptions,
-} from 'typeorm';
+import { Repository, getRepository, FindOneOptions } from 'typeorm';
 
 import Book from '../entities/Book';
 
