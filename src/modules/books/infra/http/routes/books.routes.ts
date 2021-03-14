@@ -24,6 +24,7 @@ booksRouter.post(
   }),
   booksController.create,
 );
+
 booksRouter.put(
   '/book/:id',
   celebrate({
@@ -43,6 +44,7 @@ booksRouter.put(
   }),
   booksController.update,
 );
+
 booksRouter.delete(
   '/book/:id',
   celebrate({
@@ -52,7 +54,17 @@ booksRouter.delete(
   }),
   booksController.remove,
 );
+
+booksRouter.get(
+  '/book/:id',
+  celebrate({
+    [Segments.PARAMS]: {
+      id: Joi.string().not().empty().required(),
+    },
+  }),
+  booksController.find,
+);
+
 booksRouter.get('/', booksController.findAll);
-booksRouter.get('/book/:id', booksController.find);
 
 export default booksRouter;

@@ -18,4 +18,8 @@ export default class SharedBookService {
 
     return booksFilterered[0];
   }
+
+  public getOffset(resultsPerPage: number, firstPage: number): number {
+    return resultsPerPage * (firstPage - 1);
+  }
 }

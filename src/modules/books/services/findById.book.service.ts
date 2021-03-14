@@ -17,5 +17,15 @@ export default class FindByIdBookService {
     private booksRepository: IBooksRepository,
   ) {}
 
-  public async execute({ id, user_id }: IRequest): Promise<IResponse> {}
+  public async execute({ id, user_id }: IRequest): Promise<IResponse> {
+    const book = await this.booksRepository.find({
+      id,
+    });
+
+    if (!book) {
+      throw new AppError('Book not found', 404);
+    }
+
+    return book;
+  }
 }
