@@ -12,6 +12,8 @@ interface IRequest {
   email: string;
   old_password?: string;
   password?: string;
+  phone: string;
+  age: number;
 }
 
 @injectable()
@@ -28,6 +30,8 @@ class UpdateProfileService {
     user_id,
     name,
     email,
+    phone,
+    age,
     old_password,
     password,
   }: IRequest): Promise<User> {
@@ -45,6 +49,8 @@ class UpdateProfileService {
 
     user.name = name;
     user.email = email;
+    user.phone = phone;
+    user.age = age;
 
     if (password && !old_password) {
       throw new AppError(
