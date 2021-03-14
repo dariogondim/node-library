@@ -1,25 +1,25 @@
 import AppError from '@shared/errors/AppError';
 
-import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
+// import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
 import FakeUsersRepository from '../repositories/fakes/FakeUsersRepository';
 import FakeHashProvider from '../providers/HashProvider/fakes/FakeHashProvider';
 import CreateUserService from './CreateUserService';
 
 let fakeUsersRepository: FakeUsersRepository;
 let fakeHashProvider: FakeHashProvider;
-let fakeCacheProvider: FakeCacheProvider;
+// let fakeCacheProvider: FakeCacheProvider;
 let createUser: CreateUserService;
 
 describe('CreateUser', () => {
   beforeEach(() => {
     fakeUsersRepository = new FakeUsersRepository();
     fakeHashProvider = new FakeHashProvider();
-    fakeCacheProvider = new FakeCacheProvider();
+    // fakeCacheProvider = new FakeCacheProvider();
 
     createUser = new CreateUserService(
       fakeUsersRepository,
       fakeHashProvider,
-      fakeCacheProvider,
+      // fakeCacheProvider,
     );
   });
 
@@ -28,6 +28,8 @@ describe('CreateUser', () => {
       name: 'John Doe',
       email: 'johndoe@example.com',
       password: '123123',
+      phone: '85988776643',
+      age: 29,
     });
 
     expect(user).toHaveProperty('id');
@@ -38,6 +40,8 @@ describe('CreateUser', () => {
       name: 'John Doe',
       email: 'johndoe@example.com',
       password: '123123',
+      phone: '85988776643',
+      age: 29,
     });
 
     await expect(
@@ -45,6 +49,8 @@ describe('CreateUser', () => {
         name: 'John Doe',
         email: 'johndoe@example.com',
         password: '123123',
+        phone: '85988776643',
+        age: 29,
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
