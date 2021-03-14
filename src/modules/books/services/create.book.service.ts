@@ -33,7 +33,7 @@ export default class CreateBookService {
 
     const alreadyBookRegistered = await container
       .resolve(SharedBookService)
-      .alreadyBookRegistered({ isbn, booksRepository: this.booksRepository });
+      .filterBookByIsbn({ isbn, booksRepository: this.booksRepository });
 
     if (alreadyBookRegistered) {
       throw new AppError('The book already registered');

@@ -1,20 +1,21 @@
 import { injectable } from 'tsyringe';
 
 import IBooksRepository from '@modules/books/repositories/IBooks.repository';
+import Book from '@modules/books/infra/typeorm/entities/Book';
 
 @injectable()
 export default class SharedBookService {
-  public async alreadyBookRegistered({
+  public async filterBookByIsbn({
     isbn,
     booksRepository,
   }: {
     isbn: string;
     booksRepository: IBooksRepository;
-  }): Promise<boolean> {
-    const alreadyBookRegistered = await booksRepository.filter({
-      filterConditions: [{ isbn }],
+  }): Promise<Book> {
+    const booksFilterered = await booksRepository.filter({
+      filterConditions: [{ isbn }], // só existe, pois isbn é único
     });
 
-    return !!alreadyBookRegistered[0];
+    return booksFilterered[0];
   }
 }

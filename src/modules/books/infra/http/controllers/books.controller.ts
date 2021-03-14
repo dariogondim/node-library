@@ -1,8 +1,8 @@
-import CreateBookService from '@modules/books/services/Create.book.service';
-import FindAllBookService from '@modules/books/services/FindAll.book.service';
-import FindByIdBookService from '@modules/books/services/FindById.book.service';
-import RemoveBookService from '@modules/books/services/Remove.book.service';
-import UpdateBookService from '@modules/books/services/Update.book.service';
+import CreateBookService from '@modules/books/services/create.book.service';
+import FindAllBookService from '@modules/books/services/findAll.book.service';
+import FindByIdBookService from '@modules/books/services/findById.book.service';
+import RemoveBookService from '@modules/books/services/remove.book.service';
+import UpdateBookService from '@modules/books/services/update.book.service';
 import { classToClass } from 'class-transformer';
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
