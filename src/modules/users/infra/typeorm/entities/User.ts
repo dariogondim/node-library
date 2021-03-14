@@ -4,8 +4,11 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  JoinTable,
+  ManyToMany,
 } from 'typeorm';
-import { Exclude } from 'class-transformer';
+import { Exclude, Expose } from 'class-transformer';
+import Book from '@modules/books/infra/typeorm/entities/Book';
 
 @Entity('users')
 class User {
@@ -28,11 +31,24 @@ class User {
   @Exclude()
   password: string;
 
+  @Exclude()
+  @ManyToMany(() => Book)
+  @JoinTable()
+  books: Book[];
+
   @CreateDateColumn()
   created_at: Date;
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  @Expose({ name: 'favoriteBooks' })
+  getFavoriteBooks(): Book[] {
+    if (this.books.length === 0) {
+      return [];
+    }
+    return this.books;
+  }
 }
 
 export default User;
