@@ -4,6 +4,7 @@ import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import ICreateUserDTO from '@modules/users/dtos/ICreateUserDTO';
 
 import IFindAllProvidersDTO from '@modules/users/dtos/IFindAllProvidersDTO';
+import IRemoveUserDTO from '@modules/users/dtos/IRemoveUserDTO';
 import User from '../../infra/typeorm/entities/User';
 
 class FakeUsersRepository implements IUsersRepository {
@@ -49,6 +50,27 @@ class FakeUsersRepository implements IUsersRepository {
     this.users[findIndex] = user;
 
     return user;
+  }
+
+  public async remove(data: IRemoveUserDTO): Promise<boolean> {
+    const userToRemove = this.users.filter(book => book.id === data.id);
+
+    if (userToRemove) {
+      this.users = this.users.filter(book => book.id !== userToRemove[0].id);
+    }
+
+    const bookRemoved = this.users.filter(book => book.id === data.id);
+
+    return !bookRemoved[0];
+
+    // const { id } = data;
+    // await this.ormRepository.delete(id);
+    // const user = await this.ormRepository.findOne({
+    //   where: {
+    //     id,
+    //   },
+    // });
+    // return !user;
   }
 }
 

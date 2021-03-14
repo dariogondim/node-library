@@ -9,7 +9,7 @@ const booksController = new BooksController();
 booksRouter.use(ensureAuthenticated);
 
 booksRouter.post(
-  '/book',
+  '/',
   celebrate({
     [Segments.BODY]: {
       title: Joi.string().not().empty().required(),
@@ -26,7 +26,7 @@ booksRouter.post(
 );
 
 booksRouter.put(
-  '/book/:id',
+  '/:id',
   celebrate({
     [Segments.BODY]: {
       title: Joi.string().not().empty().required(),
@@ -46,7 +46,7 @@ booksRouter.put(
 );
 
 booksRouter.delete(
-  '/book/:id',
+  '/:id',
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.string().not().empty().required(),
@@ -56,7 +56,7 @@ booksRouter.delete(
 );
 
 booksRouter.get(
-  '/book/:id',
+  '/:id',
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.string().not().empty().required(),

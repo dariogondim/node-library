@@ -11,18 +11,31 @@ const profileController = new ProfileController();
 profileRouter.use(ensureAuthenticated);
 
 profileRouter.get('/', profileController.show);
+
 profileRouter.put(
   '/',
   celebrate({
     [Segments.BODY]: {
       name: Joi.string().required(),
       email: Joi.string().email().required(),
-      old_password: Joi.string(),
-      password: Joi.string(),
-      password_confirmation: Joi.string().valid(Joi.ref('password')),
+      phone: Joi.string().required(),
+      age: Joi.number().greater(0).required(),
+      old_password: Joi.string().required(),
+      password: Joi.string().required(),
+      password_confirmation: Joi.string().required().valid(Joi.ref('password')),
     },
   }),
   profileController.update,
+);
+
+profileRouter.delete(
+  '/',
+  celebrate({
+    [Segments.BODY]: {
+      password: Joi.string().required(),
+    },
+  }),
+  profileController.remove,
 );
 
 export default profileRouter;

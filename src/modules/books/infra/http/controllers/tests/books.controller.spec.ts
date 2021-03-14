@@ -17,7 +17,7 @@ describe('TEST BOOKS', () => {
   });
   it('CREATE:BOOK RETURN status 200', async () => {
     const result = await request(host)
-      .post(`/books/book`)
+      .post(`/books`)
       .send(fakeBook1)
       .set('Accept', 'application/json')
       .set('Content-Type', 'application/json')
@@ -30,7 +30,7 @@ describe('TEST BOOKS', () => {
 
   it('UPDATE:BOOK RETURN status 200', async () => {
     const result = await request(host)
-      .put(`/books/book/${fakeBook1.id}`)
+      .put(`/books/${fakeBook1.id}`)
       .send({
         ...fakeBook2,
       })
@@ -43,7 +43,7 @@ describe('TEST BOOKS', () => {
 
   it('UPDATE NONEXISTENT: RETURN status 404', async () => {
     const result = await request(host)
-      .put(`/books/book/${uuid()}`)
+      .put(`/books/${uuid()}`)
       .send({
         ...fakeBook2,
       })
@@ -56,7 +56,7 @@ describe('TEST BOOKS', () => {
 
   it('FIND BY ID:BOOK RETURN 200', async () => {
     const result = await request(host)
-      .get(`/books/book/${fakeBook1.id}`)
+      .get(`/books/${fakeBook1.id}`)
       .set('Authorization', `Bearer ${tokenAuthenticated}`);
     // asserções
     expect(result.status).toEqual(200);
@@ -64,7 +64,7 @@ describe('TEST BOOKS', () => {
 
   it('FIND BY ID NONEXISTENT:BOOK RETURN 404', async () => {
     const result = await request(host)
-      .get(`/books/book/${uuid()}`)
+      .get(`/books/${uuid()}`)
       .set('Authorization', `Bearer ${tokenAuthenticated}`);
     // asserções
     expect(result.status).toEqual(404);
@@ -80,7 +80,7 @@ describe('TEST BOOKS', () => {
 
   it('REMOVE:BOOK RETURN 200', async () => {
     const result = await request(host)
-      .delete(`/books/book/${fakeBook1.id}`)
+      .delete(`/books/${fakeBook1.id}`)
       .set('Authorization', `Bearer ${tokenAuthenticated}`);
     // asserções
     expect(result.status).toEqual(200);
@@ -88,7 +88,7 @@ describe('TEST BOOKS', () => {
 
   it('REMOVE NONEXISTENT BOOK: RETURN 404', async () => {
     const result = await request(host)
-      .delete(`/books/book/${uuid()}`)
+      .delete(`/books/${uuid()}`)
       .set('Authorization', `Bearer ${tokenAuthenticated}`);
     // asserções
     expect(result.status).toEqual(404);
@@ -97,7 +97,7 @@ describe('TEST BOOKS', () => {
   it('FIND ALL: BOOKS RETURN PAGE PROPERY WITH 1 PER PAGE CORRECT', async () => {
     // cria os dois objetos
     const book1 = await request(host)
-      .post(`/books/book`)
+      .post(`/books`)
       .send(fakeBook1)
       .set('Accept', 'application/json')
       .set('Content-Type', 'application/json')
@@ -106,7 +106,7 @@ describe('TEST BOOKS', () => {
     fakeBook1.id = book1.body.id;
 
     const book2 = await request(host)
-      .post(`/books/book`)
+      .post(`/books`)
       .send(fakeBook2)
       .set('Accept', 'application/json')
       .set('Content-Type', 'application/json')
@@ -127,7 +127,7 @@ describe('TEST BOOKS', () => {
   it('FIND ALL:BOOKS RETURN PAGE PROPERY WITH 2 PER PAGE CORRECT', async () => {
     // cria os dois objetos
     const book1 = await request(host)
-      .post(`/books/book`)
+      .post(`/books`)
       .send(fakeBook1)
       .set('Accept', 'application/json')
       .set('Content-Type', 'application/json')
@@ -136,7 +136,7 @@ describe('TEST BOOKS', () => {
     fakeBook1.id = book1.body.id;
 
     const book2 = await request(host)
-      .post(`/books/book`)
+      .post(`/books`)
       .send(fakeBook2)
       .set('Accept', 'application/json')
       .set('Content-Type', 'application/json')
