@@ -126,7 +126,7 @@ Time:        34.703 s
 ```
 
 
-Na pasta tmp do projeto, há um arquivo chamado Insomnia-node-library 
+Na pasta tmp do projeto, há um arquivo chamado <b> Insomnia-node-library </b>
   Faça o download do programa: <b>https://insomnia.rest/download/</b> e importe esse arquivo.  
 
 ## 📦 Desenvolvimento
@@ -171,7 +171,17 @@ Há exemplos de como testar todos os endpoints
      phone: string;
      age: number;
      oldPassword: string; -- usado quando precisa editar ou remover um usuário. Se não vai alterar o password,só deixar a mesma senha de antes
-  ### 
+  ### Usuário padrão, criado nas migrations,pode ser excluido
+  ```
+   {
+          name: 'John Doe',
+          email: 'johndoe@example.com',
+          password: '123123',
+          phone: '85988776643',
+          age: 29,
+   },
+  ```
+  
     Listar os usuários da biblioteca COMPLETO
    ##### <i> Foi adicionado paginação através das propriedades: ex <b> firstPage=1&resultsPerPage=2&limitResults=100 </b> </i>
     Retornar dados de um usuário COMPLETO
