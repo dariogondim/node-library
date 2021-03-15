@@ -1,4 +1,8 @@
-import { fakeBook1, fakeBook2 } from '@shared/providers/fakes/FakeObjs';
+import {
+  fakeBook1,
+  fakeBook2,
+  fakeUser1,
+} from '@shared/providers/fakes/FakeObjs';
 import 'dotenv/config';
 import request from 'supertest';
 import { uuid } from 'uuidv4';
@@ -9,9 +13,14 @@ const host = process.env.APP_API_URL;
 
 describe('TEST BOOKS', () => {
   beforeAll(async () => {
+    await request(host)
+      .post('/users')
+      .send(fakeUser1)
+      .set('Accept', 'application/json')
+      .set('Content-Type', 'application/json');
     const response = await request(host).post('/sessions').send({
-      email: 'dario.sjc@gmail.com',
-      password: '123456',
+      email: fakeUser1.email,
+      password: fakeUser1.password,
     });
     tokenAuthenticated = response.body.token; // save the token!
   });

@@ -44,10 +44,7 @@ class User {
 
   @Expose({ name: 'favoriteBooks' })
   getFavoriteBooks(): Book[] {
-    if (this.books.length === 0) {
-      return [];
-    }
-    return this.books;
+    return this.books || [];
   }
 }
 

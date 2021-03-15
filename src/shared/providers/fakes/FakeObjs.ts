@@ -1,3 +1,4 @@
+import Book from '@modules/books/infra/typeorm/entities/Book';
 import { uuid } from 'uuidv4';
 
 /* eslint-disable import/prefer-default-export */
@@ -39,4 +40,13 @@ export const fakeUser2 = {
   password: '123456',
   phone: '85988776655',
   age: 29,
+};
+
+export const fakeUser3 = {
+  name: 'Dario Gondim',
+  email: `${uuid()}@gmail.com`,
+  password: '123456',
+  phone: '85988776655',
+  age: 29,
+  books: [] as Book[],
 };
