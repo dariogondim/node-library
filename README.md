@@ -1,16 +1,33 @@
-# Backend Warren.
+# Backend South.
 
 
 ## 🚀 Aplicação
-  Um backend de controle de contas bancárias com funções básicas como:
+ Desenvolver uma API RESTFull em que realize a gestão de livros e usuários de uma biblioteca. 
+
+ ### Funcionalidades para Livros:
+    Listar todos livros disponíveis
+    Retornar dados de um livro
+    Salvar, Editar e Excluir.
+    Salvar livro na lista de favoritos de um usuário  
     
-    Extrato / histórico da conta (entradas e saídas)
-    Realizar um depósito
-    Realizar um resgate
-    Fazer um pagamento
-    Monetizar o saldo mínimo da conta de um dia para o outro
+ ### Funcionalidades para o Usuário:
+    Listar os usuários da biblioteca.
+    Retornar dados de um usuário
+    Salvar, Editar e Excluir.
+    Autenticar usuário   
     
-  O projeto usa <b> nodejs, postgresql, jest, typeorm, express, tsyringe e jwt</b> como tecnologias, biliotecas e frameworks principais 
+ ### Dados mínimos esperados para o Livro: 
+    Título, ISBN, Categoria, Ano  
+    
+ ### Dados mínimos esperados para o Usuário: 
+    Nome, Idade, Telefone, Email, Senha
+    
+    
+ ## Considerações importantes
+    As funcionalidades para salvar, editar e excluir devem estar protegidas, acessível apenas para usuários autenticados
+    Considere salvar os dados sensíveis do usuário de forma segura.
+    
+O projeto usa <b> nodejs, postgresql, jest, typeorm, express, tsyringe e jwt</b> como tecnologias, biliotecas e frameworks principais 
   
 
 ### 📋 Pré-requisitos
@@ -20,7 +37,7 @@
 
 ### 🔧 Instalação
 
-clonar este repositório, comando: <b> git clone https://github.com/dariogondim/backend-warren </b>
+clonar este repositório, comando: <b> git clone https://github.com/dariogondim/node-library </b>
 
 ## rápida
   Tendo docker e docker compose instalados, simplesmente,execute:
@@ -28,8 +45,6 @@ clonar este repositório, comando: <b> git clone https://github.com/dariogondim/
 ```
 docker-compose up --build
 ```
-OBS: Só funciona com a branch master, por enquanto
-
 De forma detalhada...
 
 Se você não tem o git, faça o download em: https://git-scm.com/downloads
@@ -45,7 +60,7 @@ Ele deve retornar algo como <b>Now using node v14.16.0 (npm v6.14.11)</b>
 Depois disso, vá até a raiz do projeto, aonde você clonou do git
 
 ```
-cd backend-warren
+cd node-library
 yarn
 ```
 Em seguida, você precisa instalar o postgresql, a maneira mais rápida de fazer isso,
@@ -53,36 +68,38 @@ Em seguida, você precisa instalar o postgresql, a maneira mais rápida de fazer
 Faça o download do docker em:https://www.docker.com/products/docker-desktop
 Após a instalação, certifique-se de que ele foi instalado corretamente, digite: <b>docker --version</b>
 Ele deve retornar algo parecido com: <i>Docker version 19.03.13, build 4484c46d9d</i>
-Se tudo ocorreu bem, execute: <b> docker run --name warren -e POSTGRES_PASSWORD=docker -p 5432:5432 -d postgres </b>
+Se tudo ocorreu bem, execute: <b> docker run --name south -e POSTGRES_PASSWORD=docker -p 5432:5432 -d postgres </b>
 O comando retorna um resultado parecido com <b> 4207bb17f1d2fcd442500b3ae2afca2bbddbdd6d6022161c02c49b81c31131fd </b>
 Copie o retorno, que deve ser diferente desse, e
 Execute <b>  docker start 4207bb17f1d2fcd442500b3ae2afca2bbddbdd6d6022161c02c49b81c31131fd  </b>, para iniciar o container,<b>não se esqueça de que isso é 
 um exemplo, o codigo após o start,  deve ser o gerado pela sua máquina</b>
 Qualquer coisa, se perdeu esse codigo, digite <b> docker ps -a</b>, ele deve retornar uma linha, copie da linha de comando o código do container na primeira coluna na linha retornada e então execute o docker start com o código retornado
 
-<b>Usando a interface de comando ou seu gerenciador postgresql favorito, você deve criar um banco de dados chamdo <i>warren_db</i> em localhost,
+<b>Usando a interface de comando ou seu gerenciador postgresql favorito, você deve criar um banco de dados chamdo <i>node_library</i> em localhost,
 após a conexão com o container tiver sido executada com sucesso</b>
 
 Pela linha de comando, com o container iniciado, execute <b>docker ps</b> e verifique se retornou alguma coisa; se retornar, execute
-<b> docker exec -it warren psql -U postgres </b>
+<b> docker exec -it south psql -U postgres </b>
 ele deve exibir no terminal algo parecido com <b>postgres=#</b>
-execute <b>create database warren_db;</b>, não se esqueça do ;
+execute <b>create database node_library;</b>, não se esqueça do ;
 ele deve retornar <b> CREATE DATABASE </b>
-
+ 
 Se tudo correu bem, vá até a raiz do seu projeto e execute: <b> yarn typeorm migration:run </b>, isso vai criar o database e os dados de teste
-As instruções de conexão com o banco de dados também estão descritas no arquivo <b> ormconfig.json </b> do projeto, se você já souber como
-fazer esse processo.
+<b> As instruções de conexão com o banco de dados também estão descritas no .env, que coloquei só para facilitar mas há um exemplo chamado .env.example, 
+seria so renomear ele para .env e substituir as propriedades a vontade. A boa prática diz para colocar o .env no gitignore, já que contém as verdadeiras variáveis de ambiente, incluindo a senha do db e a key do jwt. Mas para facilitar tudo, já coloquei,pois não se trata de um projeto real em produção. </b>
+Esse projeto também não contém nenhuma camada de segurança dos dados ou autenticação, já que não era requisito  
 
 Você então, pode iniciar o projeto com o comando: 
 
 ```
-yarn dev:server
+yarn start
 ```
-Ele torna a execução inicial do projeto bem mais rápida, ótima para os testes em desenvolvimento
 
 ## ⚙️ Executando os testes
 
-  Execute o comando abaixo na raiz do projeto, para se certificar de que as funcionalidades estão funcionando como deveria. 
+  Execute o comando abaixo na raiz do projeto, para se certificar de que as funcionalidades estão funcionando como deveria. Mas os testes de integração 
+  só funcionarão se o banco de dados e as migrações tiverem sido executadas com sucesso. Os outros testes,de unidade, não precisam de acesso ao banco de dados
+  
   
 ```
 yarn test
@@ -109,101 +126,86 @@ Time:        34.703 s
 ```
 
 
-Na pasta tmp do projeto, há um arquivo chamado Insomnia_2021-03-01-warren-backend. 
-  Faça o download do programa: <b>https://insomnia.rest/download/</b> e importe esse arquivo. 
-  
-###Opcional
-  Criei uma branch chamada mongodb, onde as bankTransactions são salvas em um segundo banco de dados do tipo mongodb. Se
-  quiser testar essa opção, use <b> git checkout mongodb </b>
-  Recupere uma imagem mongodb do docker com 
-  <b> docker run --name mongodb -p 27017:27017 -d -t mongo </b>
-  Crie um database chamado <b> warren_db_mongo </b>
-  Você pode fazer o dowload em https://docs.mongodb.com/compass/master/install/, 
-  Abra o programa e clique em <b> New Connection </b>
-  na caixa em branco digite <b>mongodb://localhost:27017</b>
-  Apos a conexão, crie o database <b> warren_db_mongo </b> e não se esqueça de adicionar uma coleção vazia, teste por exemplo
-  Depois disso, basta executar o programa normalmente, não tem migrações
-  
-```
-yarn dev:server
-```
-  e os testes
-```
-yarn test
-``` 
+Na pasta tmp do projeto, há um arquivo chamado Insomnia-node-library 
+  Faça o download do programa: <b>https://insomnia.rest/download/</b> e importe esse arquivo.  
 
 ## 📦 Desenvolvimento
 Há exemplos de como testar todos os endpoints
-  da aplicação com os dados já previamente inseridos nas migrations do typeorm, mas você pode testar inserindo mais dados.
-  Os endpoints criados permitem fazer as seguintes ações:
- 
-    1. Criação de usuários
-    2. Criação de sessões
-    3. Criação de depósitos
-    4. Criação de saques
-    5. Criação de pagamentos internos/transfência (entre as contas do banco da aplicação,
-    que no caso dos exemplos, é banco do Brasil, mas poderia ser qualquer outro banco)
-    6. Criação de pagamentos externos (para outros bancos). Nesse caso, apenas as informações necessárias, 
-    como banco, agencia, conta e cpf,são guardadas,sem chaves estrangeiras nos relacionamentos, pois subentende-se, que sejam de outros bancos
-
-Se você não quiser usar os dados de exemplo, Você pode criar um usuário mas precisa usar um dos clientes de exemplo ou criar diretamente no banco,
-pois não há endpoints para isso. Após,chame o método Create de sessions, para gerar um token jwt e salve-o no environmente Dev,substituindo o token que
-já existia lá. Só clicar no canto superior esquerdo e selecionar Manage Environment. Esse token indica que o usuário está num ambiente autenticado 
-usando um token Bearer jwt.
-
-
+  da aplicação conforme pedido nos requisitoss
+  
 ### Arquitetura do projeto
-  #### Módulos e relacionamentos
-      O projeto foi dividido logicamente em módulos, que representam o domínio da aplicação: 
-      a. bank
-        Guarda as informações bancárias da aplicação, como o código(cod) e o nome do banco(name),segundo a 
-        Compe (Código do Sistema de Operações Monetárias e Compensações de Outros Papéis.).
-      b. agency, 
-        As agências bancárias, com o respectivo banco (bank) e o endereço da agência
-      c. bankAccount
-        As contas bancárias, com suas agências,tipo da conta (currency  = corrente e saving = poupança) e profitability, uma referência
-        a uma tabela que indica a porcentagem de remuneração da conta, se tiver, pois é opcional
-      d. client
-        Os dados dos clientes, como nome completo (fullname) e cpf. # Essas imformações sensíveis ainda não estão sendo criptografadas pela aplicação
-      e. profitability
-        Os tipos de rentabilização type_profitability (daily ou monthly), a taxa mensal ou diária em si e a descrição. São associadas as transações 
-        e as contas bancárias
-      f. user
-        Guarda o login e senha (criptografados) do usuário. O usuário se associa com um cliente através da tabela clients_has_users, mas não há endpoint
-        implementado para isso ainda. A idéia é que o cliente logue com seu email e senha,de uma forma geral, escolha a conta bancária que deseja realizar
-        alguma transação. As operações de transações são realizadas em um ambiente autenticado com jwt (json web tokens). O token identifica o usuário e é 
-        requerido em todas as operações com as contas bancárias. A conta bancária selecionada é representada pelo campo: bank_account_sender_id nas requisições,
-        você pode usar algumas contas dos exemplos adicionados pelo banco de dados. Veja um exemplo em funcionamento usando o aplicativo insomnia, conforme
-        explicado acima.
-      g. usersHasClients
-         Associa um usuário a um cliente. Há a restrição de que um cliente só pode ter um usuário, mas para facilitar possíveis mudanças futuras, foi preferido
-         usar essa abordagem em favor de colocar a referência do cliente diretamente na tabela de usuário ou vice-versa
-      h. bankTransactions
-         Guardam as informações das transações em si. Possuem várias regras de negócio associadas, tais como a compensatioDate, 
-         que de acordo com a origin_transaction, podem alterar a data de compensação da transação, seguindo algumas regras similares as originais
-         
-             Doc: no dia seguinte (não dia útil,como esperado)
-             Ted: no mesmo dia até as 17hrs, (sem o horário limite de 06:30 inicial, como esperado)
-             Pix: compensam na mesma hora.        
-             
-         Além disso, é verificado o saldo e se algumas informações básicas estão vindo na requisiçã, como channel ( o canel de onde foi realizada a transação),
-         etc. É verificado também, inclusive nos testes, se o tipo da transação e o status está de acordo com o tipo da operação (depósito, saque, pagamento e
-         pagamentos externos).
-         
-         O método getBalance (RetrieveBalanceService), recupera o saldo e extrato em um formato similar a um extrato real,com todas as transações, inclusive
-         as futuras, nome do cliente, saldo final, informações da conta e agência, nome do banco, período (que filtra os resultados), balanço e balanço 
-         monetizável da aplicação, memo (um lembrete comummente utilizado ao salvar uma transação, opcional) e saldo anterior.
-         A monetização implementada é diária, remunerando pelo menor saldo do dia, no dia seguinte, similar a remuneração das contas poupanças e conforme
-         a taxa aplicada na tabela profitability, associada a conta e também a transação. Se um mesma taxa for aplicada no dia ou retirada, prevalece a primeira 
-         taxa, dentro do mesmo dia. 
-         Não foi aplicado ainda outros tipos de remunerações, mensais, por exemplo.
-         Não é aceito valores negativos na transação
-         Nos pagamentos externos, as propriedades com _destiny no final são obrigatórias, mas nos outros tipos de transações não
-         Não é verificado, nem impedido ainda, se um cliente transferir ou pagar, para ele mesmo
-         É verificado se o cliente do token, corresponde ao cliente da transação representado na chave estrangeira: em bank_account_sender_id
-       
-         
-         
+
+  #### Requisitos da aplicação e regras de negócio
+   ### Funcionalidades para Livros:
+   
+    isbn: string;
+    title: string;
+    category: string;
+    edition: string; extra
+    author: string; extra
+    publishing: string; extra
+    editionYear: number;
+    numberPages: number; extra
+  
+    Listar todos livros disponíveis COMPLETO
+   ##### <i> Foi adicionado paginação através das propriedades: ex <b> firstPage=1&resultsPerPage=2&limitResults=100 </b> </i>
+    Retornar dados de um livro COMPLETO
+   ##### <i> É verificado se o livro existe, caso contrário, receberá erro 404 -- Book not found </b> </i>
+    Salvar COMPLETO 
+   ##### <i> É verificado se o livro já não está cadastrado, caso contrário, receberá erro 400 -- The book already registered </b> </i>
+    Editar COMPLETO
+   ##### <i> É verificado se o livro existe, caso contrário, receberá erro 404 -- Book not found </b> </i>
+   ##### <i> É verificado se o livro já não está cadastrado, caso contrário, receberá erro 400 -- The book already registered </b> </i>
+    Excluir COMPLETO
+   ##### <i> É verificado se o livro existe, caso contrário, receberá erro 404 -- Book not found </b> </i>
+   ##### <i> É verificado se o livro foi removido, caso contrário, receberá erro 400 -- The book has not been removed </b> </i>
+    Salvar livro na lista de favoritos de um usuário COMPLETO
+   ##### <i> Essa ação está no endpoint de usuários/profile, porque é o usuário que possui os seus livros favoritos </b> </i>
+   ##### <i> É verificado se o usuário existe, caso contrário, receberá erro 400 -- User not found </b> </i>
+   
+   ### Funcionalidades para Usuários:
+   
+     name: string;
+     email: string;
+     password: string;
+     phone: string;
+     age: number;
+     oldPassword: string; -- usado quando precisa editar ou remover um usuário. Se não vai alterar o password,só deixar a mesma senha de antes
+  ### 
+    Listar os usuários da biblioteca COMPLETO
+   ##### <i> Foi adicionado paginação através das propriedades: ex <b> firstPage=1&resultsPerPage=2&limitResults=100 </b> </i>
+    Retornar dados de um usuário COMPLETO
+   ##### <i> Os livros favoritos do usuário estão em uma propriedade "favoriteBooks" no profile </b> </i>
+    Salvar COMPLETO
+   ##### <i> É verificado se o email não existe, caso contrário, retorna 400 -- Email address already used.  </b> </i>
+   ##### <i> A senha é criptografada e é o único dado sensível de usuário  </b> </i>
+    Editar COMPLETO
+   ##### <i> É verificado se o email não existe, caso contrário, retorna 400 -- E-mail already in use.  </b> </i>
+   ##### <i> É verificado se o usuário existe, caso contrário, receberá erro 400 -- User not found </b> </i>
+   ##### <i> É verificado se a senha de confirmação foi enviada e se confere, caso contrário, o 400 -- You need to inform old password to set a new password. </b> </i>
+   
+    Autenticar usuário COMPLETO
+  ##### <i> É verificado se o usuário e senha conferem caso contrário, receberá o erro 401 -- Incorrect email/password combination</b>
+  
+  OBS: Não foi colocado nenhuma ação de revogação do token, que tem data de expiração de 1 dia.Dessa forma, se um usuário for removido,seu token continuará
+  válido até que se complete as 24 horas de seu login, permitindo que ele faça qualquer ação exceto, as que verificam seu usuário em tempo real, como excluir e editar o profile,visualizar o profile, salvar livros na lista de favoritos... todas as outras, continuaram acessíveis até a expiração do token.
+   
+  #### Esclarecimento sobre os endpoints
+  No que se refere a usuários, há 3 tipos de endpoints:
+  users, profile e sessions:
+  
+    ##users
+      criam usuários e listam usuários
+    ##sessions
+      criam o token de autenticação
+    ##profile
+      se referem a um usuário em si: Atualizar,mostrar e remover usuário e favoritar os livros.
+    Os livros favoritos são listados no /profile endpoint,na propriedade "favoriteBooks",conforme já foi citado.
+    A estratégia também permite "retirar dos favoritos", bastando apenas, não informar a cada chamada do endpoint de
+    favoritar os livros, o livro que se deseja excluir dos favoritos
+  
+  
+   
          
   #### Estrutura das pastas
         Com o objetivo de facilitar mudanças, aplicar a SOLID (https://en.wikipedia.org/wiki/SOLID), isolando as regras de negócio o máximo possível, facilitando
@@ -216,55 +218,33 @@ usando um token Bearer jwt.
           muito os services.
           
           b.services.
-            Pode ter dois tipos. Nessa aplicação, pode ser observado no módulo bankTransactions. As que estão no pacote shared, contém funções e regras
+            Pode ter dois tipos. As que estão no pacote shared, contém funções e regras
             usadas pelos serviços do módulo que normalmente, são compartilhadas e reutilizadas por outras partes da aplicação,dentro do mesmo módulo. Mas 
             a regra geral, é deixar qualque código que contenha lógica de negócio la,pois posteriormente,o código pode ser testado (nos arquivos .spec) de forma
-            individual,sem estar necessariamente associado ao serviço mais externo do módulo,evitando testar mais de uma vez a mesma coisa.
-            ex. A funcão que verifica se o código do cliente no token é igual ao código do cliente na propriedade bank_account_sender_id da aplicação, é usada
-            por todos os services (Deposit, Withdraw, Payment e PaymentExternal) mas testada somente uma vez, pelo arquivo de teste ValidateTransactionsService.
-            Em cada service, digamos, exterior (Deposit, Withdraw, Payment e PaymentExternal), costuma ser testado apenas se no caso de uma quebra da regra de 
-            negócio, a aplicação retorna um erro, conforme esperado. 
-              Obs: Foi separado as funções de validação das funções que retornam algum tipo de objeto, guardadas em GetObjsTransactionsService. Algumas
-              dessas funcões ainda não foram testadas e outras sequer isoladas, apesar da alta porcetagem de cobertura do código. Na situação ideal, a intenção
-              é deixar nos services gerais, apenas os códigos que usam/chamam todas as bussiness rules daquele serviço e retornar exceções quando algumas delas
-              são quebradas. Salvando o objeto no repositório correspondente, se tudo estiver validado.
+            individual,sem estar necessariamente associado ao serviço mais externo do módulo,evitando testar mais de uma vez a mesma coisa, a menos que as regras           sejam muito simples, no caso desse projeto, ficarão dentro de cada service geral mesmo.
+          
               
           c.controllers
              Usando a dependência tsyringe para recuperar um serviço dentro do controlador correspondente. Sua função é receber os dados da requisição e 
              chamar todos os serviços necessários para a execução do endpoint. Em tese, um controller mapeia um ou mais endpoints filhos de um mesmo pai. 
-             Na aplicação, o controller BankTrasactionsController,dentro da pasta infra/http, é responsável por lidar com as requisições do subdominio
-             /transactions da aplicão. Ele gerencia os depósitos, saques, pagamentos e extratos. A url é mapeada na pasta routes dentro http, lá também é 
-             definido o tipo de método http (post, put,get, etc), se o método usa algum midleware personalizado, como na autenticação, ou se o endpoint precisa
-             de autenticação para ser executado. 
              Em suma, o controller pode realizar várias ações,chamando vários serviços dentro de um mesmo endpoint,se
              necessário. A fim de manter a integridade da operação como um todo (atomicidade), pode ser necessário usar transctions (a dependência 
-             typeorm-transactional-cls-hooked nos ajuda com isso). Por exemplo, apesar de ter sido feito de outra forma, uma transferência,
-             que é uma espécie de pagamento,poderia ser feito usando duas ações, depósito e saque, sendo que ou as duas acontecem ou nada acontece; a transação
-             se encaixa nesse cenário. O controller também pode modificar o tipo da resposta, a fim de retornar algo específico,se necessário, tal como o
+             typeorm-transactional-cls-hooked nos ajuda com isso).O controller também pode modificar o tipo da resposta, a fim de retornar algo específico,se necessário, tal como o
              controller de usuário, que remove a propriedade password, para que não seja serializada na requisição
           
           d.dto
-             Especificam o tipo de dado esperado para realizar uma operação no banco de dados, conforme esperado pelo serviço. Depósito, por exemplo, não
-             pede uma conta de destino, pagamentos sim. Pagamentos externos, tornam obrigatórias as propriedades com final _destiny, que não são necessárias
-             em outras operações. As vezes, os dados são mesclados com os dados da requisição, alguns dados são gerados diretamente no service, como o
-             typeTransaction. Por conta disso, os services costumam ter uma interface chamada IRequest, que também ajuda na organização do código, isolamento
-             das propriedades necessárias na requisiçao ( uma espécie de contrato, dentro dos princípios da SOLID). Outra prática comum é, ao invés de
-             colocar um único parametro do tipo correspondente no escopo do método, bt:BankTransactions, por exemplo; o que se faz é desestruturar
+             Especificam o tipo de dado esperado para realizar uma operação no banco de dados, conforme esperado pelo serviço. As vezes, os dados são mesclados                com os dados da requisição, por conta disso, os services costumam ter uma interface chamada IRequest, que também ajuda na organização do código,                  isolamento das propriedades necessárias na requisiçao ( uma espécie de contrato, dentro dos princípios da SOLID). Outra prática comum é, ao invés de
+             colocar um único parametro do tipo correspondente no escopo do método, o que se faz é desestruturar
              o objeto inteiro nas suas propriedades, facilitando a leitura das propriedades que estão sendo modificadas e ajudando a evitar erros, pela falta
              de uma propriedade que é obrigatória, ou uma obrigatória que se tornou opcional, etc.
-         e.constants
-            O padrão de constants representado no arquivo BankTransactions.constants, ajuda para que as propriedades possam ser mantidas e reutilizadas em mais
-            de um local, como nas migrations, facilitando a manutenção do código e evitando erros de difícil percepção.
-         f.fakes
+         e.fakes
             Os fakes repositories e o fakeDatabase e FakeObjs, tem o objetivo de auxiliar os testes para que forneçam a experiẽncia mais próxima possivel 
             da realidade, da estrutura de dados da aplicação mas sem que seja necessário criar banco de dados de testes ou poluir o banco de dados de produção.
-          
+         g.testes
+            há dois tipos de testes, os de unidade, que ficam dentro dos services e os de integração, que ficam dentro de controllers. Via de regra, toda funcionalidade será testada nos serviços exceto para os casos em que o controlador modifica a resposta vinda diretamente do serviço, como no caso do controlador de ordens (e também o de produtos), na parte de listagem, eles paginam no controlador e não no serviço. Isso é testado como sendo parte do teste de integração. No geral, os testes de integração também testam se os endpoints retornar sucesso ou falha ou se contém alguma propriedade fundamental. Nesse projeto, os testes de integração são "testes dos controllers", não testando integração de forma profunda em si.
          
         
-        
       
-
-
 ## 🛠️ Construído com
 
 Mencione as ferramentas que você usou para criar seu projeto
